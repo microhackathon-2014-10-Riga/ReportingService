@@ -35,14 +35,4 @@ class ClientController {
         clientRepository.save(client)
         metricRegistry.meter("apps.prod.lv.reportingService.clients")
     }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/clients", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ClientDTO> list() {
-        return clientRepository.findAll().collect { toClientDto(it) }
-    }
-
-    private ClientDTO toClientDto(Client client) {
-        ClientDTO clientDTO = new ClientDTO(client.firstName, client.lastName, client.age, client.loanId)
-        return clientDTO
-    }
 }
