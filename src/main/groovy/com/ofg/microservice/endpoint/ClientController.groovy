@@ -1,10 +1,12 @@
 package com.ofg.microservice.endpoint
+
 import com.codahale.metrics.MetricRegistry
 import com.ofg.microservice.domain.Client
 import com.ofg.microservice.dto.ClientDTO
 import com.ofg.microservice.repositories.ClientRepository
 import groovy.util.logging.Log
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.MediaType
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -25,7 +27,7 @@ class ClientController {
         this.metricRegistry = metricRegistry
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/client")
+    @RequestMapping(method = RequestMethod.POST, value = "/client", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public void post(@RequestBody ClientDTO clientDTO) {
         log.info("create a client: $clientDTO");
@@ -34,7 +36,7 @@ class ClientController {
         metricRegistry.meter("apps.prod.lv.reportingService.clients")
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/clients")
+    @RequestMapping(method = RequestMethod.GET, value = "/clients", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ClientDTO> list() {
         return clientRepository.findAll().collect { toClientDto(it) }
     }

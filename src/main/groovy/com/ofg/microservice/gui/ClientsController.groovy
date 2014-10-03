@@ -2,6 +2,7 @@ package com.ofg.microservice.gui
 
 import com.ofg.microservice.dto.ClientDTO
 import com.ofg.microservice.repositories.ClientRepository
+import com.ofg.microservice.transformer.ClientTransformer
 import groovy.util.logging.Log
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -22,6 +23,6 @@ public class ClientsController {
     @RequestMapping(method = RequestMethod.GET, value = "/api/clients", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ClientDTO> getClients() {
         log.info("ClientController#getClients");
-        return clientRepository.findAll().collect { toClientDto(it) }
+        return clientRepository.findAll().collect { ClientTransformer.toDto(it) }
     }
 }
