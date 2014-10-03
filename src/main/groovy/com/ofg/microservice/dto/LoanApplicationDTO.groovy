@@ -6,6 +6,5 @@ import groovy.transform.Canonical;
 public class LoanApplicationDTO {
     
     String loanId;
-    String clientId;
     String amount;
 }
