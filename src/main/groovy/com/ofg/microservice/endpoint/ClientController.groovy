@@ -1,5 +1,6 @@
 package com.ofg.microservice.endpoint
 
+import com.codahale.metrics.Meter
 import com.codahale.metrics.MetricRegistry
 import com.ofg.microservice.domain.Client
 import com.ofg.microservice.dto.ClientDTO
@@ -19,12 +20,12 @@ import org.springframework.web.bind.annotation.RestController
 class ClientController {
 
     private ClientRepository clientRepository
-    private MetricRegistry metricRegistry
+    private final Meter meter
 
     @Autowired
     ClientController(ClientRepository clientRepository, MetricRegistry metricRegistry) {
         this.clientRepository = clientRepository
-        this.metricRegistry = metricRegistry
+        this.meter = metricRegistry.meter("clients")
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/client", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -33,6 +34,6 @@ class ClientController {
         log.info("create a client: $clientDTO");
         Client client = new Client(clientDTO.firstName, clientDTO.lastName, clientDTO.age, clientDTO.loanId)
         clientRepository.save(client)
-        metricRegistry.meter("apps.prod.lv.reportingService.clients")
+        meter.mark()
     }
 }
