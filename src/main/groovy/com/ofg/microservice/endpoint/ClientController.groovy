@@ -1,12 +1,10 @@
 package com.ofg.microservice.endpoint
-
 import com.codahale.metrics.MetricRegistry
 import com.ofg.microservice.domain.Client
 import com.ofg.microservice.dto.ClientDTO
 import com.ofg.microservice.repositories.ClientRepository
 import groovy.util.logging.Log
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.MediaType
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
