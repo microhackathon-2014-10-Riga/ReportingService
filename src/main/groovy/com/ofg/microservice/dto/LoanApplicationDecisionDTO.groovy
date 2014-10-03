@@ -1,4 +1,4 @@
-package com.ofg.microservice.endpoint
+package com.ofg.microservice.dto
 
 import groovy.transform.Canonical;
 

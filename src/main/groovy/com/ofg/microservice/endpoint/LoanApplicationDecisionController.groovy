@@ -1,5 +1,6 @@
 package com.ofg.microservice.endpoint
 
+import com.ofg.microservice.dto.LoanApplicationDecisionDTO
 import groovy.util.logging.Log
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.RequestMapping

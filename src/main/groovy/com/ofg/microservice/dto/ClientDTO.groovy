@@ -1,10 +1,7 @@
-package com.ofg.microservice.endpoint
+package com.ofg.microservice.dto
 
 import groovy.transform.Canonical
 
-/**
- * Created by Madalina.Bidilita on 03/10/2014.
- */
 @Canonical
 class ClientDTO {
 
