@@ -15,6 +15,6 @@ class Client extends BaseEntity {
 
     String firstName
     String lastName
-    String age
+    int age
     String loanId
 }
