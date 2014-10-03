@@ -1,4 +1,5 @@
 package com.ofg.microservice.endpoint
+import com.codahale.metrics.Meter
 import com.codahale.metrics.MetricRegistry
 import com.ofg.microservice.domain.LoanApplication
 import com.ofg.microservice.dto.LoanApplicationDTO
@@ -16,15 +17,19 @@ import static com.ofg.microservice.transformer.LoanApplicationTransformer.toEnti
 @RestController
 public class LoanApplicationController {
     
-    @Autowired
     private LoanApplicationRepository loanApplicationRepository;
+    private final Meter meter;
 
     @Autowired
-    private MetricRegistry metricRegistry
+    public LoanApplicationController(LoanApplicationRepository loanApplicationRepository, MetricRegistry metricRegistry) {
+        this.loanApplicationRepository = loanApplicationRepository;
+        this.meter = metricRegistry.meter("loanApplications");
+    }
     
     @RequestMapping(method = RequestMethod.POST, value = "/api/loan")
     public void post(@RequestBody LoanApplicationDTO loanApplicationDTO) {
         LoanApplication loanApplication = loanApplicationRepository.saveAndFlush(toEntity(loanApplicationDTO));
-        log.info("The loan application was saved: {}", loanApplication);
+        log.info("The loan application was saved: $loanApplication");
+        meter.mark();
     }
 }
