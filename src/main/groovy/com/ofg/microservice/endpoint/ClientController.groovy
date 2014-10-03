@@ -27,7 +27,7 @@ class ClientController {
         this.metricRegistry = metricRegistry
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/client", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, value = "/client")
     @Transactional
     public void post(@RequestBody ClientDTO clientDTO) {
         log.info("create a client: $clientDTO");
@@ -36,7 +36,7 @@ class ClientController {
         metricRegistry.meter("apps.prod.lv.reportingService.clients")
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/clients", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.GET, value = "/clients")
     public List<ClientDTO> list() {
         return clientRepository.findAll().collect { toClientDto(it) }
     }
